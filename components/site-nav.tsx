@@ -62,12 +62,12 @@ export function SiteNav() {
           <Image
             src="/logo/logo.png"
             alt="Clockwise Technologies"
-            width={180}
-            height={52}
+            width={340}
+            height={100}
             priority
             className={cn(
               'w-auto object-contain transition-all duration-300',
-              scrolled ? 'h-7 sm:h-8' : 'h-8 sm:h-9',
+              scrolled ? 'h-9 sm:h-10' : 'h-10 sm:h-11 lg:h-12',
             )}
           />
         </Link>
