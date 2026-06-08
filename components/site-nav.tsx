@@ -50,8 +50,8 @@ export function SiteNav() {
         className={cn(
           'flex w-full items-center justify-between gap-4 px-4 transition-all duration-300 sm:px-6 lg:px-10',
           scrolled
-            ? 'border-b border-border/80 bg-background/90 py-3 shadow-sm backdrop-blur-xl'
-            : 'border-b border-border/40 bg-background/70 py-4 backdrop-blur-md',
+            ? 'border-b border-border bg-background/95 py-2.5 shadow-[0_1px_0_0_var(--border)] backdrop-blur-xl'
+            : 'border-b border-transparent bg-background/80 py-3.5 backdrop-blur-md',
         )}
       >
         <Link
@@ -65,50 +65,39 @@ export function SiteNav() {
             width={180}
             height={52}
             priority
-            className="h-8 w-auto object-contain sm:h-9"
+            className={cn(
+              'w-auto object-contain transition-all duration-300',
+              scrolled ? 'h-7 sm:h-8' : 'h-8 sm:h-9',
+            )}
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={cn(
-                'group relative rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                isActivePath(pathname, l.href)
-                  ? 'text-foreground'
-                  : 'text-foreground/70 hover:text-foreground',
-              )}
-            >
-              {l.label}
-              <span
+        <nav className="hidden items-center gap-0.5 lg:flex">
+          {links.map((l) => {
+            const active = isActivePath(pathname, l.href)
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
                 className={cn(
-                  'absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-gradient-to-r from-primary to-accent transition-transform duration-300',
-                  isActivePath(pathname, l.href)
-                    ? 'scale-x-100'
-                    : 'scale-x-0 group-hover:scale-x-100',
+                  'rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200',
+                  active
+                    ? 'bg-primary/8 text-foreground'
+                    : 'text-foreground/65 hover:bg-secondary hover:text-foreground',
                 )}
-              />
-            </Link>
-          ))}
+              >
+                {l.label}
+              </Link>
+            )
+          })}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <Link
-            href="/contact"
-            className={buttonVariants({
-              variant: 'ghost',
-              className: 'text-foreground/80 hover:text-foreground',
-            })}
-          >
-            Request Consultation
-          </Link>
+        <div className="hidden lg:flex">
           <Link
             href="/contact"
             className={buttonVariants({
               className:
-                'group bg-primary text-primary-foreground hover:bg-primary/90',
+                'group h-10 rounded-full bg-primary px-5 text-primary-foreground shadow-soft hover:bg-primary/90',
             })}
           >
             Get Started
@@ -118,7 +107,7 @@ export function SiteNav() {
 
         <button
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-lg border border-border bg-background/60 text-foreground lg:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground lg:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
         >
@@ -129,31 +118,33 @@ export function SiteNav() {
       <AnimatePresence>
         {open && (
           <motion.nav
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="border-b border-border bg-background/95 px-4 py-2 shadow-lg backdrop-blur-xl lg:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-b border-border bg-background/98 backdrop-blur-xl lg:hidden"
           >
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  'block rounded-lg px-4 py-3 text-sm font-medium transition-colors hover:bg-secondary hover:text-foreground',
-                  isActivePath(pathname, l.href)
-                    ? 'text-foreground'
-                    : 'text-foreground/80',
-                )}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <div className="mt-2 flex flex-col gap-2 p-2">
+            <div className="space-y-1 px-4 py-4">
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    'block rounded-xl px-4 py-3 text-sm font-medium transition-colors',
+                    isActivePath(pathname, l.href)
+                      ? 'bg-primary/8 text-foreground'
+                      : 'text-foreground/80 hover:bg-secondary',
+                  )}
+                >
+                  {l.label}
+                </Link>
+              ))}
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className={buttonVariants({ className: 'w-full' })}
+                className={buttonVariants({
+                  className: 'mt-3 h-11 w-full rounded-full',
+                })}
               >
                 Get Started
               </Link>

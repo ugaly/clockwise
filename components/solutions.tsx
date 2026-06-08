@@ -10,7 +10,10 @@ import {
   HeartPulse,
   Check,
 } from 'lucide-react'
+import { IconBg } from '@/components/icon-bg'
 import { SectionHeading } from '@/components/section-heading'
+import { SectionDecorations } from '@/components/section-decorations'
+import { cn } from '@/lib/utils'
 
 const solutions = [
   {
@@ -62,11 +65,13 @@ export function Solutions() {
   return (
     <section
       id="solutions"
-      className="relative scroll-mt-24 overflow-hidden bg-secondary/30 py-20 sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-br from-primary/[0.04] via-background to-accent/[0.06] py-20 sm:py-28"
     >
-      <div className="pointer-events-none absolute inset-0 bg-dots opacity-40 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
+      <SectionDecorations variant="solutions" />
+      <div className="pointer-events-none absolute inset-0 bg-dots opacity-30 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+          variant="line"
           eyebrow="Ready-made solutions"
           title="Platforms built for real industries"
           description="Proven, customizable systems that get you to market faster — deployed across logistics, healthcare, real estate, education, finance and more."
@@ -80,43 +85,39 @@ export function Solutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-              className={`group relative flex flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+              className={cn(
+                'group relative flex flex-col rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
                 s.featured
-                  ? 'border-primary/30 bg-gradient-to-br from-primary to-[oklch(0.36_0.11_255)] text-primary-foreground shadow-lg shadow-primary/20'
-                  : 'border-border bg-card hover:border-primary/40 hover:shadow-primary/10'
-              }`}
+                  ? 'border-primary/30 bg-gradient-brand text-primary-foreground shadow-elevated'
+                  : 'pro-card hover:border-primary/30 hover:shadow-primary/10',
+              )}
             >
-              <div className="flex items-center justify-between">
-                <div
-                  className={`flex size-12 items-center justify-center rounded-xl ${
-                    s.featured
-                      ? 'bg-white/15 text-white'
-                      : 'bg-gradient-to-br from-primary/10 to-accent/15 text-primary ring-1 ring-inset ring-primary/10'
-                  }`}
-                >
-                  <s.icon className="size-6" />
-                </div>
+              <div className="flex items-start justify-between gap-3">
+                <IconBg icon={s.icon} onDark={s.featured} />
                 <span
-                  className={`rounded-full px-3 py-1 text-xs font-medium ${
+                  className={cn(
+                    'rounded-full px-3 py-1 text-xs font-medium',
                     s.featured
                       ? 'bg-white/15 text-white/90'
-                      : 'bg-secondary text-foreground/70'
-                  }`}
+                      : 'bg-secondary text-foreground/70',
+                  )}
                 >
                   {s.tag}
                 </span>
               </div>
               <h3
-                className={`mt-5 font-heading text-lg font-semibold ${
-                  s.featured ? 'text-white' : 'text-foreground'
-                }`}
+                className={cn(
+                  'mt-5 font-heading text-lg font-semibold',
+                  s.featured ? 'text-white' : 'text-foreground',
+                )}
               >
                 {s.title}
               </h3>
               <p
-                className={`mt-2 text-sm leading-relaxed ${
-                  s.featured ? 'text-white/80' : 'text-muted-foreground'
-                }`}
+                className={cn(
+                  'mt-2 text-sm leading-relaxed',
+                  s.featured ? 'text-white/80' : 'text-muted-foreground',
+                )}
               >
                 {s.desc}
               </p>
@@ -124,14 +125,16 @@ export function Solutions() {
                 {s.features.map((f) => (
                   <li
                     key={f}
-                    className={`flex items-center gap-1.5 text-xs ${
-                      s.featured ? 'text-white/90' : 'text-foreground/70'
-                    }`}
+                    className={cn(
+                      'flex items-center gap-1.5 text-xs',
+                      s.featured ? 'text-white/90' : 'text-foreground/70',
+                    )}
                   >
                     <Check
-                      className={`size-3.5 shrink-0 ${
-                        s.featured ? 'text-accent' : 'text-primary'
-                      }`}
+                      className={cn(
+                        'size-3.5 shrink-0',
+                        s.featured ? 'text-accent' : 'text-primary',
+                      )}
                     />
                     {f}
                   </li>

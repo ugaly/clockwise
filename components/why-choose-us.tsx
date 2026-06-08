@@ -12,7 +12,9 @@ import {
   Timer,
   type LucideIcon,
 } from 'lucide-react'
+import { IconBg } from '@/components/icon-bg'
 import { SectionHeading } from '@/components/section-heading'
+import { SectionDecorations } from '@/components/section-decorations'
 import { cn } from '@/lib/utils'
 
 const reasons = [
@@ -27,7 +29,7 @@ const reasons = [
 ]
 
 function ReasonCard({
-  icon: Icon,
+  icon,
   title,
   desc,
   className,
@@ -40,13 +42,11 @@ function ReasonCard({
   return (
     <div
       className={cn(
-        'group w-64 shrink-0 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all hover:border-primary/40 hover:shadow-md',
+        'group w-64 shrink-0 rounded-2xl border border-border/80 bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-elevated',
         className,
       )}
     >
-      <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-accent/15 text-primary ring-1 ring-inset ring-primary/10 transition-transform group-hover:scale-105">
-        <Icon className="size-5" />
-      </div>
+      <IconBg icon={icon} />
       <h3 className="mt-4 font-heading text-base font-semibold text-foreground">
         {title}
       </h3>
@@ -59,16 +59,17 @@ export function WhyChooseUs() {
   const marqueeRow = [...reasons, ...reasons]
 
   return (
-    <section className="relative overflow-hidden bg-secondary/30 py-20 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
+    <section className="section-band relative overflow-hidden py-20 sm:py-28">
+      <SectionDecorations variant="why" />
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+          variant="line"
           eyebrow="Why Clockwise"
           title="Built on trust, delivered with excellence"
           description="Organizations choose us because we combine technical depth with a genuine commitment to their success."
         />
 
-        {/* Mobile: auto-sliding marquee */}
         <div className="marquee-pause relative -mx-4 mt-8 overflow-hidden mask-fade-x sm:hidden">
           <div className="animate-marquee flex w-max gap-3 py-1 pl-4 [animation-duration:42s]">
             {marqueeRow.map((r, i) => (
@@ -77,15 +78,14 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        {/* Tablet & desktop: grid */}
         <div className="mt-14 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
-          {reasons.map((r, i) => (
+          {reasons.map((r) => (
             <motion.div
               key={r.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.4, delay: (i % 4) * 0.08 }}
+              transition={{ duration: 0.4 }}
             >
               <ReasonCard {...r} className="w-full" />
             </motion.div>

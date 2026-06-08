@@ -15,9 +15,10 @@ import {
   Check,
   type LucideIcon,
 } from 'lucide-react'
+import { IconBg } from '@/components/icon-bg'
 import { SectionHeading } from '@/components/section-heading'
+import { SectionDecorations } from '@/components/section-decorations'
 import styles from './service-flip-card.module.css'
-
 type Service = {
   icon: LucideIcon
   title: string
@@ -104,12 +105,9 @@ function ServiceFlipCard({
     >
       <div className={`${styles.inner} ${isFlipped ? styles.innerFlipped : ''}`}>
         <div
-          className={`${styles.face} flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm`}
+          className={`${styles.face} pro-card group flex flex-col p-6`}
         >
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-          <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-accent/15 text-primary ring-1 ring-inset ring-primary/10">
-            <Icon className="size-6" />
-          </div>
+          <IconBg icon={Icon} />
           <h3 className="mt-5 font-heading text-lg font-semibold text-foreground">
             {service.title}
           </h3>
@@ -124,12 +122,10 @@ function ServiceFlipCard({
         </div>
 
         <div
-          className={`${styles.face} ${styles.back} flex flex-col rounded-2xl border border-primary/30 bg-gradient-to-br from-primary via-[oklch(0.42_0.12_252)] to-[oklch(0.32_0.1_258)] p-6 text-primary-foreground shadow-lg`}
+          className={`${styles.face} ${styles.back} bg-gradient-brand flex flex-col rounded-2xl border border-primary/20 p-6 text-primary-foreground shadow-elevated`}
         >
           <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-white/10 blur-2xl" />
-          <div className="relative flex size-12 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-inset ring-white/20">
-            <Icon className="size-6" />
-          </div>
+          <IconBg icon={Icon} size="sm" onDark />
           <h3 className="relative mt-5 font-heading text-lg font-semibold text-white">
             {service.title}
           </h3>
@@ -156,9 +152,14 @@ export function Services() {
   }
 
   return (
-    <section id="services" className="relative scroll-mt-24 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section
+      id="services"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-background via-primary/[0.03] to-background py-20 sm:py-28"
+    >
+      <SectionDecorations variant="services" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+          variant="line"
           eyebrow="What we do"
           title="End-to-end technology services"
           description="From idea to deployment and beyond, we deliver the full spectrum of digital capabilities your organization needs to compete and grow."

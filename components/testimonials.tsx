@@ -39,16 +39,17 @@ export function Testimonials() {
     setIndex((i) => (i + dir + testimonials.length) % testimonials.length)
 
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28">
+    <section className="relative overflow-hidden bg-background py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+          variant="line"
           eyebrow="Testimonials"
           title="What our clients say"
           description="We measure our success by the growth and satisfaction of the organizations we serve."
         />
 
-        <div className="relative mx-auto mt-14 max-w-3xl">
-          <Quote className="mx-auto size-10 text-primary/30" />
+        <div className="pro-card relative mx-auto mt-14 max-w-3xl rounded-3xl p-8 sm:p-10">
+          <Quote className="mx-auto size-10 text-primary/25" />
           <div className="relative min-h-[14rem]">
             <AnimatePresence mode="wait">
               <motion.div

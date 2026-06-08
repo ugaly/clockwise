@@ -81,6 +81,15 @@
   --sidebar-accent-foreground: oklch(0.3 0.06 250);
   --sidebar-border: oklch(0.91 0.015 235);
   --sidebar-ring: oklch(0.46 0.13 250);
+  --gradient-brand: linear-gradient(135deg, var(--primary), oklch(0.55 0.13 235), var(--accent));
+  --gradient-hero-overlay: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--primary) 55%, transparent),
+    color-mix(in oklch, var(--foreground) 40%, transparent)
+  );
+  --surface-muted: oklch(0.97 0.01 235);
+  --shadow-soft: 0 1px 2px oklch(0.21 0.04 250 / 4%), 0 8px 24px oklch(0.21 0.04 250 / 6%);
+  --shadow-elevated: 0 4px 6px oklch(0.21 0.04 250 / 5%), 0 20px 48px oklch(0.46 0.13 250 / 12%);
 }
 
 .dark {
@@ -150,7 +159,33 @@
   .mask-fade-x {
     mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
   }
-
+  .bg-gradient-brand {
+    background: var(--gradient-brand);
+  }
+  .bg-surface-muted {
+    background-color: var(--surface-muted);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+  .eyebrow-line {
+    @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-primary;
+  }
+  .eyebrow-line::before {
+    content: '';
+    @apply h-px w-8 bg-primary/40;
+  }
+  .pro-card {
+    @apply rounded-2xl border border-border/80 bg-card transition-all duration-300;
+    box-shadow: var(--shadow-soft);
+  }
+  .section-band {
+    @apply border-y border-border/60;
+    background-color: var(--surface-muted);
+  }
 }
 
 @keyframes marquee {
