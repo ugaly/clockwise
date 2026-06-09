@@ -12,22 +12,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pull latest code and rebuild containers
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          command_timeout: 30m
-          script: |
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Pull latest code and rebuild containers
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          ssh -o StrictHostKeyChecking=yes "${SSH_USER}@${SSH_HOST}" "
             set -e
-            cd "${{ secrets.DEPLOY_PATH }}"
-            echo "→ Pulling latest code..."
+            cd \"${DEPLOY_PATH}\"
+            echo '→ Pulling latest code...'
             git fetch origin
-            git reset --hard origin/${{ github.ref_name }}
-            echo "→ Rebuilding and starting containers..."
+            git reset --hard origin/${BRANCH}
+            echo '→ Rebuilding and starting containers...'
             sudo docker compose down
             sudo docker compose up --build -d
-            echo "→ Running containers:"
+            echo '→ Running containers:'
             sudo docker compose ps
+          "
