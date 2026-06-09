@@ -109,7 +109,7 @@ export function Hero() {
 
             <h1 className="mt-5 text-balance font-heading text-2xl font-bold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]">
               Building reliable software that helps businesses{' '}
-              <span className="text-gradient">grow</span>
+              <span className="text-gradient">grow.</span>
             </h1>
 
             <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
