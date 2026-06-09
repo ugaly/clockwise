@@ -34,8 +34,13 @@ jobs:
             git fetch origin
             git reset --hard origin/${BRANCH}
             echo '→ Rebuilding and starting containers...'
-            docker compose down
-            docker compose up --build -d
-            echo '→ Running containers:'
-            docker compose ps
+            if docker compose version >/dev/null 2>&1; then
+              docker compose down
+              docker compose up --build -d
+              docker compose ps
+            else
+              docker-compose down
+              docker-compose up --build -d
+              docker-compose ps
+            fi
           "
