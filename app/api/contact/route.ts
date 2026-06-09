@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { SITE_CONTACT } from '@/lib/site-contact'
 import {
   WEB3FORMS_SUBMIT_URL,
   type ContactFormPayload,
@@ -70,7 +71,7 @@ export async function POST(request: Request) {
         {
           success: false,
           message:
-            'Email service returned an empty response. Please email us directly at info@clockwisetech.com.',
+            `Email service returned an empty response. Please email us directly at ${SITE_CONTACT.email}.`,
         },
         { status: 502 },
       )
@@ -90,7 +91,7 @@ export async function POST(request: Request) {
       {
         success: false,
         message:
-          'Unable to send your message right now. Please try again or email info@clockwisetech.com.',
+          `Unable to send your message right now. Please try again or email ${SITE_CONTACT.email}.`,
       },
       { status: 500 },
     )

@@ -1,8 +1,8 @@
 export const SITE_CONTACT = {
   phone: '+255754711170',
   phoneHref: 'tel:+255754711170',
-  email: 'info@clockwisetech.com',
-  emailHref: 'mailto:info@clockwisetech.com',
+  email: 'clockwisetechnology2@gmail.com',
+  emailHref: 'mailto:clockwisetechnology2@gmail.com',
   location: 'Morocco Square NHC, Dar es Salaam, Tanzania',
   mapsUrl: 'https://maps.app.goo.gl/iLpSm4R2T2T4ddDD9',
   mapEmbedUrl:

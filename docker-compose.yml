@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://clockwisetech.com}
+        NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
     ports:
       - "${PORT:-3000}:3000"
     env_file:
@@ -12,5 +13,6 @@ services:
     environment:
       NODE_ENV: production
       WEB3FORMS_ACCESS_KEY: ${WEB3FORMS_ACCESS_KEY}
+      NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://clockwisetech.com}
     restart: unless-stopped

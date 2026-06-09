@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/motion-primitives'
 import { SITE_CONTACT } from '@/lib/site-contact'
+import { submitContactForm } from '@/lib/web3forms'
 
 const info = [
   { icon: Phone, label: 'Phone', value: SITE_CONTACT.phone, href: SITE_CONTACT.phoneHref },
@@ -37,46 +38,21 @@ export function Contact() {
     const form = e.currentTarget
     const formData = new FormData(form)
 
+    const name = String(formData.get('name') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
+    const message = String(formData.get('message') ?? '').trim()
+    const company = String(formData.get('company') ?? '').trim()
+    const phone = String(formData.get('phone') ?? '').trim()
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          name: formData.get('name'),
-          company: formData.get('company'),
-          email: formData.get('email'),
-          phone: formData.get('phone'),
-          message: formData.get('message'),
-        }),
-      })
-
-      const raw = await response.text()
-      let data: { success?: boolean; message?: string } | null = null
-
-      if (raw.trim()) {
-        try {
-          data = JSON.parse(raw) as { success?: boolean; message?: string }
-        } catch {
-          throw new Error('Unexpected server response. Please try again or email us directly.')
-        }
-      }
-
-      if (!data) {
-        throw new Error(
-          'Could not reach the mail service. Please try again or email info@clockwisetech.com.',
-        )
-      }
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Failed to send message.')
-      }
-
+      await submitContactForm({ name, email, message, company, phone })
       setStatus('sent')
       form.reset()
     } catch (err) {
       setStatus('error')
+      const detail = err instanceof Error ? err.message : 'Something went wrong.'
       setErrorMessage(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+        `${detail} Please try again or email ${SITE_CONTACT.email}.`,
       )
     }
   }
