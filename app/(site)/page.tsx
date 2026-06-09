@@ -12,7 +12,7 @@ export default function HomePage() {
       <TrustedBy />
       <Services />
       <WhyChooseUs />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <CtaBanner />
     </>
   )

@@ -63,7 +63,7 @@ export function SiteNav() {
             src="/logo/logo.png"
             alt="Clockwise Technologies"
             width={340}
-            height={100}
+            height={150}
             priority
             className={cn(
               'w-auto object-contain transition-all duration-300',

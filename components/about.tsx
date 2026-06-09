@@ -27,7 +27,7 @@ export function About() {
               className="h-full w-full object-cover"
             />
           </div>
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -36,7 +36,7 @@ export function About() {
           >
             <p className="font-heading text-2xl font-bold text-foreground">8+ yrs</p>
             <p className="text-xs text-muted-foreground">Engineering excellence</p>
-          </motion.div>
+          </motion.div> */}
         </Reveal>
 
         <div>

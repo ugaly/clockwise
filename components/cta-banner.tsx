@@ -24,7 +24,7 @@ export function CtaBanner() {
             transition={{ duration: 0.6 }}
             className="relative mx-auto max-w-2xl"
           >
-            <span className="eyebrow-line justify-center text-white/90 before:bg-white/40">
+            <span className="eyebrow-line justify-center text-white before:bg-white/40">
               Let&apos;s build together
             </span>
             <h2 className="mt-5 text-balance font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">

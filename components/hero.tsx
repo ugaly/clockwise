@@ -70,10 +70,12 @@ export function Hero() {
           className="relative h-52 sm:h-64 lg:h-auto lg:min-h-full"
         >
           <Image
-            src="/about-team.png"
-            alt="Clockwise Technologies software development team"
+            //https://images.pexels.com/photos/7689757/pexels-photo-7689757.jpeg 
+            src="https://images.pexels.com/photos/7689854/pexels-photo-7689854.jpeg"
+            alt="Data center experts collaborating on technology and analytics"
             fill
             priority
+            unoptimized
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 55vw"
           />
@@ -163,7 +165,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="section-band px-4 py-10 sm:px-6 sm:py-12">
+      {/* <div className="section-band px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
           {stats.map((s) => (
             <div
@@ -179,7 +181,7 @@ export function Hero() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }

@@ -22,15 +22,6 @@ const info = [
 ]
 
 const socials = socialIcons
-const services = [
-  'Software Development',
-  'Web Development',
-  'Mobile App Development',
-  'Cloud Solutions',
-  'Cybersecurity',
-  'Other',
-]
-const budgets = ['< $5k', '$5k – $15k', '$15k – $50k', '$50k+']
 
 export function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
@@ -94,12 +85,14 @@ export function Contact() {
               ))}
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-border">
+            <div className="overflow-hidden rounded-2xl border border-primary/20 shadow-soft ring-1 ring-primary/10">
               <iframe
                 title="Clockwise Technologies location in Dar es Salaam"
                 src={SITE_CONTACT.mapEmbedUrl}
-                className="h-56 w-full grayscale"
+                className="h-72 w-full sm:h-80 lg:h-96"
                 loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
 
@@ -142,48 +135,18 @@ export function Contact() {
                 <Field label="Phone">
                   <Input
                     type="tel"
-                    placeholder="+254 700 000 000"
+                    placeholder="+255 754 711 170"
                     className="h-11"
                   />
-                </Field>
-                <Field label="Service Needed">
-                  <select
-                    className="h-11 w-full rounded-lg border border-input bg-transparent px-3 text-sm text-foreground outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Select a service
-                    </option>
-                    {services.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="Budget">
-                  <select
-                    className="h-11 w-full rounded-lg border border-input bg-transparent px-3 text-sm text-foreground outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Select a range
-                    </option>
-                    {budgets.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
-                    ))}
-                  </select>
                 </Field>
               </div>
               <div className="mt-4">
                 <Field label="Message" required>
                   <Textarea
                     required
-                    rows={4}
+                    rows={8}
                     placeholder="Tell us about your project goals…"
-                    className="resize-none"
+                    className="min-h-[12rem] resize-y sm:min-h-[14rem]"
                   />
                 </Field>
               </div>

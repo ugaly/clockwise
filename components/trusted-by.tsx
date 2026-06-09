@@ -22,9 +22,9 @@ export function TrustedBy() {
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             Trusted across industries
           </p>
-          <p className="text-sm text-muted-foreground">
+          {/* <p className="text-sm text-muted-foreground">
             <span className="font-semibold text-foreground">120+</span> organizations served
-          </p>
+          </p> */}
         </div>
         <div className="marquee-pause relative mt-8 overflow-hidden mask-fade-x">
           <div className="animate-marquee flex w-max items-center gap-3 [animation-duration:48s]">

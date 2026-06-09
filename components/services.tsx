@@ -10,7 +10,7 @@ import {
   GitBranch,
   Megaphone,
   Cloud,
-  ShieldCheck,
+  MonitorCog,
   ArrowUpRight,
   Check,
   type LucideIcon,
@@ -70,10 +70,15 @@ const services: Service[] = [
     items: ['AWS & Azure', 'DigitalOcean', 'Cloud Migration'],
   },
   {
-    icon: ShieldCheck,
-    title: 'Cybersecurity',
-    desc: 'Protect systems with audits and monitoring.',
-    items: ['Security Audits', 'Vulnerability Tests', 'Best Practices'],
+    icon: MonitorCog,
+    title: 'IT Consulting & Analytics',
+    desc: 'IT consulting, virtualization, and data analysis for insights and decision-making.',
+    items: [
+      'IT Strategy & Consulting',
+      'Virtualization & Infrastructure',
+      'Data Analysis & Reporting',
+      'Business Intelligence',
+    ],
   },
 ]
 
