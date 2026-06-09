@@ -23,13 +23,47 @@ const info = [
 
 const socials = socialIcons
 
-export function Contact() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+type FormStatus = 'idle' | 'sending' | 'sent' | 'error'
 
-  const onSubmit = (e: FormEvent) => {
+export function Contact() {
+  const [status, setStatus] = useState<FormStatus>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus('sending')
-    setTimeout(() => setStatus('sent'), 1200)
+    setErrorMessage('')
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          company: formData.get('company'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          message: formData.get('message'),
+        }),
+      })
+
+      const data = (await response.json()) as { success: boolean; message?: string }
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to send message.')
+      }
+
+      setStatus('sent')
+      form.reset()
+    } catch (err) {
+      setStatus('error')
+      setErrorMessage(
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+      )
+    }
   }
 
   return (
@@ -53,7 +87,6 @@ export function Contact() {
         </Reveal>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* left: info */}
           <Reveal className="flex flex-col gap-5">
             <div className="grid gap-4 sm:grid-cols-2">
               {info.map((c) => (
@@ -111,7 +144,6 @@ export function Contact() {
             </div>
           </Reveal>
 
-          {/* right: form */}
           <Reveal>
             <form
               onSubmit={onSubmit}
@@ -119,13 +151,19 @@ export function Contact() {
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Full Name" required>
-                  <Input required placeholder="Jane Doe" className="h-11" />
+                  <Input
+                    name="name"
+                    required
+                    placeholder="Jane Doe"
+                    className="h-11"
+                  />
                 </Field>
                 <Field label="Company Name">
-                  <Input placeholder="Acme Inc." className="h-11" />
+                  <Input name="company" placeholder="Acme Inc." className="h-11" />
                 </Field>
                 <Field label="Email" required>
                   <Input
+                    name="email"
                     type="email"
                     required
                     placeholder="jane@company.com"
@@ -134,6 +172,7 @@ export function Contact() {
                 </Field>
                 <Field label="Phone">
                   <Input
+                    name="phone"
                     type="tel"
                     placeholder="+255 754 711 170"
                     className="h-11"
@@ -143,6 +182,7 @@ export function Contact() {
               <div className="mt-4">
                 <Field label="Message" required>
                   <Textarea
+                    name="message"
                     required
                     rows={8}
                     placeholder="Tell us about your project goals…"
@@ -154,7 +194,7 @@ export function Contact() {
               <Button
                 type="submit"
                 size="lg"
-                disabled={status !== 'idle'}
+                disabled={status === 'sending'}
                 className="mt-6 w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 {status === 'idle' && 'Send Message'}
@@ -168,10 +208,16 @@ export function Contact() {
                     <Check className="mr-1 size-4" /> Message Sent
                   </>
                 )}
+                {status === 'error' && 'Send Message'}
               </Button>
               {status === 'sent' && (
                 <p className="mt-3 text-center text-sm text-muted-foreground">
                   Thanks for reaching out — we&apos;ll be in touch shortly.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="mt-3 text-center text-sm text-destructive">
+                  {errorMessage}
                 </p>
               )}
             </form>

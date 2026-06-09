@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.gitignore
+.env*.local
+.DS_Store
+*.md
+.v0-trash
+.vercel
+.snowflake
+__v0_*

@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      WEB3FORMS_ACCESS_KEY: ${WEB3FORMS_ACCESS_KEY}
+    restart: unless-stopped
