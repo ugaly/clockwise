@@ -172,7 +172,7 @@
     box-shadow: var(--shadow-elevated);
   }
   .eyebrow-line {
-    @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-white;
+    @apply inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-primary;
   }
   .eyebrow-line::before {
     content: '';
