@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Sora } from 'next/font/google'
+import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from '@/lib/site-seo'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -15,23 +16,21 @@ const sora = Sora({
 })
 
 export const metadata: Metadata = {
-  title: 'Clockwise Technologies | Digital Transformation & Software Solutions',
-  description:
-    'Clockwise Technologies builds scalable software, cloud infrastructure, mobile apps, and digital business services that help organizations across Africa thrive in the digital age.',
-  generator: 'v0.app',
-  keywords: [
-    'software development',
-    'digital transformation',
-    'cloud solutions',
-    'mobile app development',
-    'enterprise systems',
-    'Clockwise Technologies',
-  ],
-  openGraph: {
-    title: 'Clockwise Technologies | Digital Transformation Partner',
-    description:
-      'Scalable software, cloud, and digital business solutions for modern organizations.',
-    type: 'website',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | ${SITE_TAGLINE}`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/logo/logo.png' }],
   },
 }
 
@@ -39,6 +38,7 @@ export const viewport: Viewport = {
   themeColor: '#0A56A5',
   width: 'device-width',
   initialScale: 1,
+  colorScheme: 'light',
 }
 
 export default function RootLayout({
@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-TZ"
       className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} bg-background`}
     >
       <body className="font-sans antialiased">

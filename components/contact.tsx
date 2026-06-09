@@ -40,7 +40,7 @@ export function Contact() {
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           name: formData.get('name'),
           company: formData.get('company'),
@@ -50,7 +50,22 @@ export function Contact() {
         }),
       })
 
-      const data = (await response.json()) as { success: boolean; message?: string }
+      const raw = await response.text()
+      let data: { success?: boolean; message?: string } | null = null
+
+      if (raw.trim()) {
+        try {
+          data = JSON.parse(raw) as { success?: boolean; message?: string }
+        } catch {
+          throw new Error('Unexpected server response. Please try again or email us directly.')
+        }
+      }
+
+      if (!data) {
+        throw new Error(
+          'Could not reach the mail service. Please try again or email info@clockwisetech.com.',
+        )
+      }
 
       if (!response.ok || !data.success) {
         throw new Error(data.message || 'Failed to send message.')
