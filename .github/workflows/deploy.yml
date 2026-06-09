@@ -1,0 +1,33 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull latest code and rebuild containers
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script_stop: true
+          script: |
+            set -e
+            cd "${{ secrets.DEPLOY_PATH }}"
+            echo "→ Pulling latest code..."
+            git fetch origin
+            git reset --hard origin/${{ github.ref_name }}
+            echo "→ Rebuilding and starting containers..."
+            sudo docker compose down
+            sudo docker compose up --build -d
+            echo "→ Running containers:"
+            sudo docker compose ps
