@@ -29,8 +29,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/logo/logo.png' }],
+    icon: [
+      { url: '/logo/logo.png', type: 'image/png' },
+      { url: '/logo/logo.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [{ url: '/logo/logo.png', type: 'image/png' }],
+    shortcut: ['/logo/logo.png'],
   },
 }
 
