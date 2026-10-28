@@ -55,6 +55,7 @@ export const SITE_ROUTES = [
   { path: '/process', changeFrequency: 'monthly' as const, priority: 0.75 },
   { path: '/about', changeFrequency: 'monthly' as const, priority: 0.8 },
   { path: '/contact', changeFrequency: 'monthly' as const, priority: 0.85 },
+  { path: '/terms', changeFrequency: 'monthly' as const, priority: 0.6 },
 ]
 
 type PageSeoInput = {

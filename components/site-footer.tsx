@@ -27,7 +27,7 @@ const columns = [
     title: 'Legal',
     links: [
       { label: 'Privacy Policy', href: '/contact' },
-      { label: 'Terms of Service', href: '/contact' },
+      { label: 'Terms of Service', href: '/terms' },
       { label: 'Cookie Policy', href: '/contact' },
     ],
   },
